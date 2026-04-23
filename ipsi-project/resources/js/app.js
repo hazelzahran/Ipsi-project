@@ -1,1 +1,12 @@
-//
+import "../images/Vintage leather jacket.jpg";
+import "../images/Image.jpg";
+import "../images/Chunky Knit Sweater.jpg";
+import "../images/Vintage denim.jpg";
+import "../images/Vintage Band Tee.jpg";
+import "../images/Silk Floral Midi Skirt.jpg";
+import "../images/Faded Denim Jacket.jpg";
+import "../images/Vintage leather jacket back view.jpg";
+import "../images/Vintage blue denim jacket displayed on a hanger against a neutral background with soft studio lighting.jpg";
+import "../images/vintage white cotton button down shirt hanging on minimalist black wire hanger against plain wall.jpg";
+import "../images/Cargo Pants.jpg";
+import "../images/image 3.jpg";
