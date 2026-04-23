@@ -1,0 +1,200 @@
+
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: var(--font-sans, sans-serif); }
+.wrap { padding: 24px 0; }
+.section { margin-bottom: 32px; }
+.section-title { font-size: 18px; font-weight: 500; color: var(--color-text-primary); margin-bottom: 4px; }
+.section-sub { font-size: 13px; color: var(--color-text-secondary); margin-bottom: 16px; }
+.card { background: var(--color-background-secondary); border: 1px solid var(--color-border-tertiary); border-radius: var(--border-radius-lg); padding: 18px 20px; margin-bottom: 12px; }
+.card-header { display: flex; align-items: flex-start; gap: 12px; margin-bottom: 12px; }
+.badge { display: inline-flex; align-items: center; gap: 5px; padding: 3px 10px; border-radius: 99px; font-size: 11px; font-weight: 500; white-space: nowrap; flex-shrink: 0; }
+.badge-customer { background: #EEEDFE; color: #3C3489; }
+.badge-admin { background: #E1F5EE; color: #085041; }
+.badge-fr { background: #E6F1FB; color: #0C447C; }
+.badge-nfr { background: #FAEEDA; color: #633806; }
+.badge-nfr-type { background: #FAECE7; color: #712B13; }
+.card-title { font-size: 14px; font-weight: 500; color: var(--color-text-primary); line-height: 1.4; }
+.card-thought { font-size: 12px; color: var(--color-text-secondary); margin-top: 8px; padding: 10px 12px; background: var(--color-background-tertiary); border-left: 3px solid var(--color-border-secondary); border-radius: 0 6px 6px 0; line-height: 1.6; }
+.req-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 12px; }
+.req-box { padding: 10px 12px; border-radius: 8px; border: 1px solid var(--color-border-tertiary); }
+.req-box.user { border-left: 3px solid #534AB7; }
+.req-box.system { border-left: 3px solid #0F6E56; }
+.req-label { font-size: 10px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.5px; color: var(--color-text-tertiary); margin-bottom: 4px; }
+.req-text { font-size: 12px; color: var(--color-text-primary); line-height: 1.5; }
+.fr-row { display: flex; align-items: flex-start; gap: 8px; padding: 8px 0; border-bottom: 1px solid var(--color-border-tertiary); }
+.fr-row:last-child { border-bottom: none; }
+.fr-desc { font-size: 12px; color: var(--color-text-primary); line-height: 1.5; flex: 1; }
+.step-label { display: inline-block; background: var(--color-background-tertiary); border: 1px solid var(--color-border-tertiary); border-radius: 99px; font-size: 11px; color: var(--color-text-secondary); padding: 2px 8px; margin-bottom: 6px; }
+.divider { height: 1px; background: var(--color-border-tertiary); margin: 20px 0; }
+.story-conntrack { font-style: italic; font-size: 13px; color: var(--color-text-secondary); line-height: 1.6; padding: 10px 14px; border: 1px solid var(--color-border-tertiary); border-radius: 8px; background: var(--color-background-secondary); margin-bottom: 10px; }
+</style>
+
+<div class="wrap">
+
+<!-- STEP 1 -->
+<div class="section">
+  <div class="section-title">Langkah 1 — Elicitation & User Story</div>
+  <div class="section-sub">Format Connextra: "As a [Role], I want [Feature], so that [Benefit]"</div>
+
+  <!-- US-01 -->
+  <div class="card">
+    <div class="card-header">
+      <span class="badge badge-customer">Customer</span>
+      <div>
+        <div class="step-label">US-01 · Fitur Baseline #1</div>
+        <div class="card-title">Sebagai seorang Customer, saya ingin dapat melihat daftar produk thrift yang tersedia beserta foto, deskripsi kondisi, ukuran, dan harganya, sehingga saya dapat membuat keputusan pembelian yang tepat tanpa harus bertanya langsung kepada penjual.</div>
+      </div>
+    </div>
+    <div class="card-thought">
+      <strong>Thought Process:</strong> Diekstrak dari fitur "Melihat daftar produk". Dalam konteks thrifting, setiap item bersifat unik (one-of-a-kind), sehingga informasi detail kondisi fisik dan ukuran menjadi faktor penentu pembelian—berbeda dari e-commerce konvensional di mana produk serupa dapat dipilih ulang. Benefit ini relevan karena mengurangi ketidakpastian pembeli dan meningkatkan kepercayaan terhadap platform.
+    </div>
+  </div>
+
+  <!-- US-02 -->
+  <div class="card">
+    <div class="card-header">
+      <span class="badge badge-customer">Customer</span>
+      <div>
+        <div class="step-label">US-02 · Fitur Baseline #3</div>
+        <div class="card-title">Sebagai seorang Customer, saya ingin dapat menambahkan, mengubah jumlah, dan menghapus produk dari keranjang belanja saya, sehingga saya dapat mengatur dan meninjau pesanan sebelum melakukan pembayaran akhir.</div>
+      </div>
+    </div>
+    <div class="card-thought">
+      <strong>Thought Process:</strong> Diekstrak dari fitur "Mengelola keranjang belanja". Dalam thrifting, pelanggan sering membandingkan beberapa item unik sebelum memutuskan. Keranjang belanja berfungsi sebagai ruang pertimbangan sementara yang mengurangi pembelian impulsif yang disesali, sekaligus meningkatkan nilai rata-rata transaksi (average order value).
+    </div>
+  </div>
+
+  <!-- US-03 -->
+  <div class="card">
+    <div class="card-header">
+      <span class="badge badge-customer">Customer</span>
+      <div>
+        <div class="step-label">US-03 · Fitur Baseline #2</div>
+        <div class="card-title">Sebagai seorang Customer, saya ingin dapat melakukan pemesanan dengan memilih alamat pengiriman dan metode pembayaran, sehingga saya dapat menyelesaikan transaksi pembelian produk thrift secara cepat dan aman dari platform.</div>
+      </div>
+    </div>
+    <div class="card-thought">
+      <strong>Thought Process:</strong> Diekstrak dari fitur "Melakukan pemesanan". Kemudahan proses checkout langsung berkorelasi dengan tingkat konversi. Menyebutkan keamanan sebagai benefit karena transaksi finansial memerlukan kepercayaan pengguna—aspek kritis dalam platform thrifting yang belum tentu dikenal luas oleh konsumen.
+    </div>
+  </div>
+
+  <!-- US-04 -->
+  <div class="card">
+    <div class="card-header">
+      <span class="badge badge-customer">Customer</span>
+      <div>
+        <div class="step-label">US-04 · Fitur Baseline #5</div>
+        <div class="card-title">Sebagai seorang Customer, saya ingin dapat melihat riwayat pemesanan saya beserta status terkininya, sehingga saya dapat memantau perkembangan pesanan dan memiliki catatan historis transaksi yang dapat dijadikan referensi.</div>
+      </div>
+    </div>
+    <div class="card-thought">
+      <strong>Thought Process:</strong> Diekstrak dari fitur "Riwayat pemesanan". Visibilitas status pesanan mengurangi kecemasan pelanggan pasca-pembelian dan menurunkan volume pertanyaan layanan pelanggan. Dalam thrifting, kepercayaan jangka panjang dibangun melalui transparansi transaksi historis.
+    </div>
+  </div>
+
+  <!-- US-05 -->
+  <div class="card">
+    <div class="card-header">
+      <span class="badge badge-admin">Admin</span>
+      <div>
+        <div class="step-label">US-05 · Fitur Baseline #4</div>
+        <div class="card-title">Sebagai seorang Admin, saya ingin dapat menambahkan produk baru dengan data lengkap serta menghapus produk yang tidak lagi tersedia, sehingga katalog produk selalu akurat dan mencerminkan inventaris nyata yang dimiliki.</div>
+      </div>
+    </div>
+    <div class="card-thought">
+      <strong>Thought Process:</strong> Diekstrak dari fitur "Admin dapat menghapus dan menambah produk". Manajemen katalog yang akurat sangat krusial dalam thrifting karena setiap item hanya ada satu unit. Kegagalan menghapus item yang terjual dapat menyebabkan pemesanan ganda (double-order), yang merusak kepercayaan pelanggan dan reputasi platform.
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- STEP 2 -->
+<div class="section">
+  <div class="section-title">Langkah 2 — User Requirement & System Requirement</div>
+  <div class="section-sub">Transisi dari bahasa pengguna menuju spesifikasi teknis sistem</div>
+
+  <!-- US-01 -->
+  <div class="card">
+    <div class="step-label">Berdasarkan US-01</div>
+    <div class="req-grid">
+      <div class="req-box user">
+        <div class="req-label">User Requirement</div>
+        <div class="req-text">Pengguna memerlukan halaman katalog yang menampilkan setiap produk thrift secara individual dengan informasi visual dan deskriptif yang cukup untuk menilai kelayakan produk sebelum membeli.</div>
+      </div>
+      <div class="req-box system">
+        <div class="req-label">System Requirement</div>
+        <div class="req-text">Sistem harus menyediakan endpoint API untuk mengambil dan menampilkan daftar produk dengan atribut: foto (min. 1 gambar), nama produk, kondisi (baru/bekas-baik/bekas-cukup), ukuran, harga, dan status ketersediaan (tersedia/terjual). Halaman harus mendukung pagination dan filter berdasarkan kategori/ukuran/harga.</div>
+      </div>
+    </div>
+    <div class="card-thought">
+      <strong>Thought Process:</strong> "Melihat daftar produk" (bahasa pengguna) diterjemahkan menjadi spesifikasi teknis dengan mendefinisikan atribut data minimum yang diperlukan, mekanisme pengambilan data (API endpoint), dan fitur navigasi (pagination, filter) yang diperlukan agar kebutuhan pengguna terpenuhi secara fungsional.
+    </div>
+  </div>
+
+  <!-- US-02 -->
+  <div class="card">
+    <div class="step-label">Berdasarkan US-02</div>
+    <div class="req-grid">
+      <div class="req-box user">
+        <div class="req-label">User Requirement</div>
+        <div class="req-text">Pengguna memerlukan mekanisme penyimpanan sementara produk pilihan yang dapat dimodifikasi kapan saja sebelum checkout, termasuk kemampuan menambah, mengubah kuantitas, dan menghapus item.</div>
+      </div>
+      <div class="req-box system">
+        <div class="req-label">System Requirement</div>
+        <div class="req-text">Sistem harus mengelola state keranjang belanja per sesi pengguna (terikat pada akun jika login, atau sesi browser jika guest). Sistem harus memvalidasi ketersediaan stok secara real-time saat item ditambahkan dan melakukan kalkulasi total harga otomatis. Sistem harus mencegah penambahan item yang sudah terjual (stok 0).</div>
+      </div>
+    </div>
+    <div class="card-thought">
+      <strong>Thought Process:</strong> "Mengelola keranjang" memunculkan kebutuhan teknis tentang di mana state disimpan (server-side vs client-side), kapan validasi stok dilakukan, dan aturan bisnis unik thrifting (satu item = satu unit). Transisi ini mengungkap kebutuhan sinkronisasi data yang tidak terlihat dari permintaan pengguna awal.
+    </div>
+  </div>
+
+  <!-- US-03 -->
+  <div class="card">
+    <div class="step-label">Berdasarkan US-03</div>
+    <div class="req-grid">
+      <div class="req-box user">
+        <div class="req-label">User Requirement</div>
+        <div class="req-text">Pengguna memerlukan alur checkout yang terstruktur untuk memasukkan detail pengiriman, memilih metode pembayaran, dan mendapatkan konfirmasi pemesanan yang jelas.</div>
+      </div>
+      <div class="req-box system">
+        <div class="req-label">System Requirement</div>
+        <div class="req-text">Sistem harus menyediakan alur checkout multi-langkah: (1) validasi isi keranjang, (2) input/pilih alamat pengiriman, (3) kalkulasi ongkos kirim, (4) pilih metode pembayaran, (5) konfirmasi & pembuatan order dengan ID unik. Sistem harus mengunci stok produk selama proses checkout aktif dan membebaskan kunci jika checkout tidak selesai dalam batas waktu tertentu.</div>
+      </div>
+    </div>
+    <div class="card-thought">
+      <strong>Thought Process:</strong> "Melakukan pemesanan" mengharuskan analisis alur bisnis secara menyeluruh. Mekanisme penguncian stok (stock lock) muncul sebagai kebutuhan teknis kritis yang tidak disebutkan pengguna, tetapi esensial untuk mencegah race condition pada item thrift yang hanya memiliki satu unit.
+    </div>
+  </div>
+
+  <!-- US-04 -->
+  <div class="card">
+    <div class="step-label">Berdasarkan US-04</div>
+    <div class="req-grid">
+      <div class="req-box user">
+        <div class="req-label">User Requirement</div>
+        <div class="req-text">Pengguna memerlukan halaman riwayat yang menampilkan semua transaksi masa lalu beserta informasi detail dan status terkini dari setiap pesanan.</div>
+      </div>
+      <div class="req-box system">
+        <div class="req-label">System Requirement</div>
+        <div class="req-text">Sistem harus menyimpan rekaman persisten setiap transaksi yang terikat pada akun pengguna, dengan status yang dapat diperbarui (menunggu pembayaran → diproses → dikirim → selesai → dibatalkan). Setiap entri riwayat harus menyimpan snapshot data produk pada saat transaksi untuk mencegah inkonsistensi data jika produk diedit atau dihapus di kemudian hari.</div>
+      </div>
+    </div>
+    <div class="card-thought">
+      <strong>Thought Process:</strong> Kebutuhan "melihat riwayat" mengungkap tantangan desain data: produk yang tercatat dalam riwayat dapat dihapus admin kapan saja. Solusi teknisnya adalah menyimpan snapshot data produk saat transaksi terjadi, bukan hanya referensi (foreign key) ke tabel produk—sebuah nuansa arsitektur data yang hanya muncul saat melakukan transisi dari user requirement ke system requirement.
+    </div>
+  </div>
+
+  <!-- US-05 -->
+  <div class="card">
+    <div class="step-label">Berdasarkan US-05</div>
+    <div class="req-grid">
+      <div class="req-box user">
+        <div class="req-label">User Requirement</div>
+        <div class="req-text">Admin memerlukan antarmuka manajemen produk yang memungkinkan penambahan produk baru dengan semua atribut relevan dan penghapusan produk yang tidak lagi tersedia.</div>
+      </div>
+      <div class="req-box system">
+        <div class="req-label">System Requirement</div>
+        <div class="req-text">Sistem harus menyediakan panel admin dengan form penambahan produk (input: nama, deskripsi, kondisi, ukuran, harga, kategori, foto). Sistem harus mendukung pengunggahan gambar dan penyimpanannya di media storage. Sistem harus memvalidasi bahwa hanya pengguna berperan Admin yang dapat mengakses endpoint manajemen produk (RBAC). Operasi penghapusan harus bersifat soft-delete untuk menjaga integritas data riwayat transaksi.

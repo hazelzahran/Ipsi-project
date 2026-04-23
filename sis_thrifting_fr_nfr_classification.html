@@ -1,0 +1,179 @@
+
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+.wrap { padding: 24px 0; }
+.section-title { font-size: 18px; font-weight: 500; color: var(--color-text-primary); margin-bottom: 4px; }
+.section-sub { font-size: 13px; color: var(--color-text-secondary); margin-bottom: 20px; }
+table { width: 100%; border-collapse: collapse; font-size: 12px; }
+th { text-align: left; padding: 9px 12px; background: var(--color-background-tertiary); color: var(--color-text-secondary); font-weight: 500; font-size: 11px; text-transform: uppercase; letter-spacing: 0.4px; border-bottom: 2px solid var(--color-border-secondary); }
+td { padding: 10px 12px; border-bottom: 1px solid var(--color-border-tertiary); vertical-align: top; line-height: 1.5; color: var(--color-text-primary); }
+tr:last-child td { border-bottom: none; }
+tr:hover td { background: var(--color-background-secondary); }
+.badge { display: inline-flex; align-items: center; padding: 2px 9px; border-radius: 99px; font-size: 10px; font-weight: 500; white-space: nowrap; }
+.b-fr { background: #E6F1FB; color: #0C447C; }
+.b-nfr { background: #FAEEDA; color: #633806; }
+.b-sec { background: #FAECE7; color: #712B13; }
+.b-perf { background: #E1F5EE; color: #085041; }
+.b-usab { background: #EEEDFE; color: #3C3489; }
+.b-rel { background: #EAF3DE; color: #27500A; }
+.b-maint { background: #FBEAF0; color: #72243E; }
+.b-int { background: #F1EFE8; color: #444441; }
+.ref-id { font-size: 11px; color: var(--color-text-tertiary); font-family: var(--font-mono); }
+.thought-box { margin-top: 16px; padding: 14px 16px; background: var(--color-background-secondary); border: 1px solid var(--color-border-tertiary); border-left: 3px solid #534AB7; border-radius: 0 8px 8px 0; font-size: 12px; color: var(--color-text-secondary); line-height: 1.7; }
+.thought-box strong { color: var(--color-text-primary); }
+.group-label { font-size: 11px; font-weight: 500; color: var(--color-text-secondary); text-transform: uppercase; letter-spacing: 0.4px; margin: 20px 0 8px; }
+</style>
+
+<div class="wrap">
+  <div class="section-title">Langkah 3 — Kategorisasi FR & NFR</div>
+  <div class="section-sub">Klasifikasi setiap System Requirement berdasarkan prinsip rekayasa perangkat lunak</div>
+
+  <table>
+    <thead>
+      <tr>
+        <th style="width:8%">ID</th>
+        <th style="width:42%">System Requirement</th>
+        <th style="width:13%">Kategori</th>
+        <th style="width:15%">Jenis NFR</th>
+        <th style="width:22%">Dasar Klasifikasi</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- SR-01 -->
+      <tr>
+        <td><span class="ref-id">SR-01</span></td>
+        <td>Sistem menyediakan API untuk menampilkan daftar produk dengan atribut lengkap (foto, kondisi, ukuran, harga, status). Mendukung pagination dan filter kategori/ukuran/harga.</td>
+        <td><span class="badge b-fr">FR</span></td>
+        <td>—</td>
+        <td>Mendefinisikan perilaku spesifik yang dapat diobservasi dan diuji: sistem melakukan sesuatu (menampilkan data). Ini adalah fungsi inti yang dapat diverifikasi dengan test case.</td>
+      </tr>
+      <!-- SR-02 -->
+      <tr>
+        <td><span class="ref-id">SR-02</span></td>
+        <td>Halaman produk harus memuat dalam waktu ≤ 2 detik pada koneksi 4G standar; gambar produk dioptimasi dan di-lazy load.</td>
+        <td><span class="badge b-nfr">NFR</span></td>
+        <td><span class="badge b-perf">Performance</span></td>
+        <td>Mendefinisikan seberapa baik sistem melakukan fungsinya (kualitas performa), bukan apa yang dilakukan. Diukur dengan metrik kuantitatif (waktu respons), bukan dengan fitur.</td>
+      </tr>
+      <!-- SR-03 -->
+      <tr>
+        <td><span class="ref-id">SR-03</span></td>
+        <td>Sistem mengelola state keranjang belanja per akun/sesi, memvalidasi stok real-time saat penambahan item, dan menghitung total harga otomatis.</td>
+        <td><span class="badge b-fr">FR</span></td>
+        <td>—</td>
+        <td>Mendefinisikan perilaku fungsional yang spesifik dan dapat diuji: validasi stok, kalkulasi harga, manajemen state. Semua merupakan logika bisnis yang dapat dideskripsikan dalam use case.</td>
+      </tr>
+      <!-- SR-04 -->
+      <tr>
+        <td><span class="ref-id">SR-04</span></td>
+        <td>Sistem mencegah penambahan item dengan stok 0 ke keranjang; menampilkan notifikasi "Item tidak tersedia" kepada pengguna secara jelas.</td>
+        <td><span class="badge b-fr">FR</span></td>
+        <td>—</td>
+        <td>Ini adalah aturan bisnis yang dapat diuji secara fungsional: jika stok = 0, sistem menolak penambahan. Perilaku spesifik dan deterministik, meskipun juga menyentuh UX.</td>
+      </tr>
+      <!-- SR-05 -->
+      <tr>
+        <td><span class="ref-id">SR-05</span></td>
+        <td>Antarmuka keranjang belanja harus intuitif dan responsif, dapat dioperasikan pada perangkat mobile maupun desktop tanpa kehilangan fungsionalitas.</td>
+        <td><span class="badge b-nfr">NFR</span></td>
+        <td><span class="badge b-usab">Usability</span></td>
+        <td>Mendefinisikan kualitas pengalaman pengguna, bukan fungsi spesifik. "Intuitif" dan "responsif" adalah atribut kualitas yang diukur melalui uji pengguna, bukan test case fungsional.</td>
+      </tr>
+      <!-- SR-06 -->
+      <tr>
+        <td><span class="ref-id">SR-06</span></td>
+        <td>Sistem menyediakan alur checkout multi-langkah: validasi keranjang → input alamat → kalkulasi ongkir → pilih pembayaran → konfirmasi & pembuatan order dengan ID unik.</td>
+        <td><span class="badge b-fr">FR</span></td>
+        <td>—</td>
+        <td>Mendefinisikan urutan langkah proses bisnis yang spesifik dan dapat diuji secara menyeluruh. Setiap langkah memiliki input, proses, dan output yang terverifikasi.</td>
+      </tr>
+      <!-- SR-07 -->
+      <tr>
+        <td><span class="ref-id">SR-07</span></td>
+        <td>Sistem mengunci stok produk (stock lock) selama sesi checkout aktif dan membebaskan kunci secara otomatis jika checkout tidak diselesaikan dalam 15 menit.</td>
+        <td><span class="badge b-fr">FR</span></td>
+        <td>—</td>
+        <td>Mekanisme penguncian adalah logika bisnis deterministik dengan aturan jelas (lock saat checkout, release setelah timeout). Dapat diuji dengan skenario konkret.</td>
+      </tr>
+      <!-- SR-08 -->
+      <tr>
+        <td><span class="ref-id">SR-08</span></td>
+        <td>Seluruh transaksi pembayaran harus diproses melalui gateway pembayaran berstandar PCI-DSS; data kartu tidak disimpan di server platform.</td>
+        <td><span class="badge b-nfr">NFR</span></td>
+        <td><span class="badge b-sec">Security</span></td>
+        <td>Mendefinisikan atribut keamanan (compliance standar PCI-DSS) yang tidak menggambarkan fungsionalitas baru, melainkan batasan dan kualitas dari cara fungsi pembayaran diimplementasikan.</td>
+      </tr>
+      <!-- SR-09 -->
+      <tr>
+        <td><span class="ref-id">SR-09</span></td>
+        <td>Sistem menyimpan rekaman transaksi persisten per akun pengguna dengan status yang dapat diperbarui (menunggu → diproses → dikirim → selesai → dibatalkan).</td>
+        <td><span class="badge b-fr">FR</span></td>
+        <td>—</td>
+        <td>Mendefinisikan mesin status (state machine) yang memiliki aturan transisi jelas dan dapat diuji. Penyimpanan dan pembaruan status adalah perilaku fungsional sistem.</td>
+      </tr>
+      <!-- SR-10 -->
+      <tr>
+        <td><span class="ref-id">SR-10</span></td>
+        <td>Setiap entri riwayat menyimpan snapshot data produk pada waktu transaksi (nama, harga, kondisi, foto) untuk menjaga konsistensi data historis.</td>
+        <td><span class="badge b-nfr">NFR</span></td>
+        <td><span class="badge b-rel">Reliability</span></td>
+        <td>Snapshot adalah mekanisme untuk menjamin integritas dan keandalan data historis terhadap perubahan masa depan. Ini adalah atribut kualitas data (reliability/consistency), bukan fitur yang diminta pengguna secara eksplisit.</td>
+      </tr>
+      <!-- SR-11 -->
+      <tr>
+        <td><span class="ref-id">SR-11</span></td>
+        <td>Sistem hanya mengizinkan pengguna berperan Admin mengakses endpoint manajemen produk (RBAC — Role-Based Access Control).</td>
+        <td><span class="badge b-nfr">NFR</span></td>
+        <td><span class="badge b-sec">Security</span></td>
+        <td>RBAC adalah kontrol keamanan (access control) yang mendefinisikan siapa yang boleh melakukan apa. Meski terimplementasi secara teknis, ini adalah atribut keamanan sistem, bukan fitur bisnis itu sendiri.</td>
+      </tr>
+      <!-- SR-12 -->
+      <tr>
+        <td><span class="ref-id">SR-12</span></td>
+        <td>Sistem menyediakan form admin untuk menambah produk baru (nama, deskripsi, kondisi, ukuran, harga, kategori, foto) dengan validasi input.</td>
+        <td><span class="badge b-fr">FR</span></td>
+        <td>—</td>
+        <td>Mendefinisikan fungsi CRUD spesifik dengan atribut data yang jelas. Form input dengan validasi adalah perilaku sistem yang dapat diuji secara langsung.</td>
+      </tr>
+      <!-- SR-13 -->
+      <tr>
+        <td><span class="ref-id">SR-13</span></td>
+        <td>Sistem mendukung pengunggahan dan penyimpanan gambar produk ke media storage, dengan validasi format file (JPG/PNG) dan batas ukuran file (maks. 5MB).</td>
+        <td><span class="badge b-fr">FR</span></td>
+        <td>—</td>
+        <td>Upload gambar dengan validasi format dan ukuran adalah perilaku fungsional yang dapat diuji secara langsung dengan file valid dan tidak valid sebagai test case.</td>
+      </tr>
+      <!-- SR-14 -->
+      <tr>
+        <td><span class="ref-id">SR-14</span></td>
+        <td>Operasi penghapusan produk bersifat soft-delete: produk tidak dihapus dari database melainkan diberi flag "dihapus", tersembunyi dari katalog publik namun tetap dapat direferensikan oleh riwayat transaksi.</td>
+        <td><span class="badge b-nfr">NFR</span></td>
+        <td><span class="badge b-int">Data Integrity</span></td>
+        <td>Soft-delete adalah strategi arsitektur data untuk menjaga integritas referensial (referential integrity). Ini adalah keputusan implementasi yang mempengaruhi kualitas dan konsistensi data jangka panjang, bukan fitur yang diminta pengguna.</td>
+      </tr>
+      <!-- SR-15 -->
+      <tr>
+        <td><span class="ref-id">SR-15</span></td>
+        <td>Platform harus tersedia (uptime) minimal 99.5% setiap bulan, dengan mekanisme failover dasar untuk mencegah downtime total pada jam operasional puncak.</td>
+        <td><span class="badge b-nfr">NFR</span></td>
+        <td><span class="badge b-rel">Reliability</span></td>
+        <td>Uptime dan ketersediaan sistem adalah atribut kualitas operasional yang diukur secara kuantitatif (persentase SLA), bukan fitur fungsional. Menggambarkan seberapa andal sistem menjalankan fungsinya.</td>
+      </tr>
+      <!-- SR-16 -->
+      <tr>
+        <td><span class="ref-id">SR-16</span></td>
+        <td>Kode sumber harus mengikuti standar penulisan (coding standard) dan didokumentasikan dengan baik untuk memudahkan pemeliharaan dan pengembangan fitur masa depan.</td>
+        <td><span class="badge b-nfr">NFR</span></td>
+        <td><span class="badge b-maint">Maintainability</span></td>
+        <td>Maintainability adalah atribut kualitas perangkat lunak yang berkaitan dengan kemudahan modifikasi sistem di masa depan. Tidak dapat diuji sebagai fitur, tetapi diukur melalui code review, kompleksitas siklomatik, dan metrik teknis lainnya.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="thought-box">
+    <strong>Thought Process — Prinsip Klasifikasi FR vs NFR:</strong><br><br>
+    Pembedaan mendasar terletak pada pertanyaan: <em>"Apakah requirement ini menggambarkan APA yang dilakukan sistem, atau SEBERAPA BAIK sistem melakukannya?"</em><br><br>
+    <strong>Functional Requirement (FR)</strong> bersifat behavioral — dapat dideskripsikan dalam bentuk use case, memiliki input dan output yang dapat diverifikasi, serta dapat diuji dengan skenario pass/fail yang konkret. Contoh: "Sistem memvalidasi stok sebelum penambahan ke keranjang" — ini dapat diuji langsung.<br><br>
+    <strong>Non-Functional Requirement (NFR)</strong> bersifat qualitative — mendefinisikan atribut kualitas sistem seperti kecepatan (Performance), keamanan (Security), keandalan (Reliability), kemudahan penggunaan (Usability), dan kemudahan pemeliharaan (Maintainability). NFR sering kali tidak terlihat oleh pengguna saat sistem berjalan normal, tetapi sangat terasa dampaknya ketika dilanggar. Dalam konteks rekayasa perangkat lunak, NFR dikenal juga sebagai <em>quality attributes</em> atau <em>-ilities</em> (reliability, scalability, maintainability).
+  </div>
+</div>
