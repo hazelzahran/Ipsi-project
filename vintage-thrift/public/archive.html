@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Archive — VINTAGE</title>
+  <meta name="description" content="Browse our curated collection of second-hand fashion pieces.">
+  <link rel="stylesheet" href="/css/style.css">
+  <style>
+    .archive-layout { display: flex; min-height: calc(100vh - 120px); }
+    .sidebar {
+      width: 220px; flex-shrink: 0;
+      padding: 28px 24px; border-right: 1px solid var(--color-border);
+      background: var(--color-white);
+    }
+    .sidebar-title { font-family: var(--font-display); font-size: 20px; margin-bottom: 24px; }
+    .filter-group { margin-bottom: 24px; }
+    .filter-label {
+      font-size: 11px; font-weight: 600; text-transform: uppercase;
+      letter-spacing: 0.5px; color: var(--color-text-secondary); margin-bottom: 10px;
+    }
+    .filter-option { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; cursor: pointer; font-size: 14px; }
+    .filter-option input[type="checkbox"], .filter-option input[type="radio"] { accent-color: var(--color-primary); width: 16px; height: 16px; }
+    .filter-divider { height: 1px; background: var(--color-border); margin: 20px 0; }
+    .size-options { display: flex; flex-wrap: wrap; gap: 6px; }
+    .size-btn {
+      width: 38px; height: 38px; border: 1.5px solid var(--color-border);
+      border-radius: var(--radius-sm); display: flex; align-items: center; justify-content: center;
+      font-size: 12px; font-weight: 500; cursor: pointer;
+      background: white; transition: all var(--transition);
+    }
+    .size-btn:hover, .size-btn.active { background: var(--color-primary-light); color: white; border-color: var(--color-primary-light); }
+    .price-inputs { display: flex; align-items: center; gap: 6px; }
+    .price-input {
+      width: 70px; padding: 8px 10px; border: 1.5px solid var(--color-border);
+      border-radius: var(--radius-sm); font-size: 13px; text-align: center;
+    }
+    .main-content { flex: 1; padding: 28px 32px; }
+    .archive-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 20px; }
+    .archive-header h1 { font-family: var(--font-display); font-size: 36px; font-weight: 600; }
+    .archive-header .sub { font-size: 14px; color: var(--color-text-secondary); margin-top: 4px; }
+    .sort-area { display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--color-text-secondary); }
+    .sort-select {
+      padding: 8px 12px; border: 1.5px solid var(--color-border);
+      border-radius: var(--radius-sm); font-size: 13px; background: white; cursor: pointer;
+    }
+    .search-bar {
+      display: flex; align-items: center; gap: 10px;
+      padding: 12px 16px; border: 1.5px solid var(--color-border);
+      border-radius: var(--radius-sm); margin-bottom: 24px; background: white;
+    }
+    .search-bar input {
+      flex: 1; border: none; outline: none; font-size: 14px; background: transparent;
+    }
+    .search-bar .icon { color: var(--color-text-muted); font-size: 16px; }
+    .results-info { font-size: 13px; color: var(--color-text-muted); margin-bottom: 16px; }
+    @media (max-width: 768px) {
+      .archive-layout { flex-direction: column; }
+      .sidebar { width: 100%; border-right: none; border-bottom: 1px solid var(--color-border); }
+      .main-content { padding: 20px 16px; }
+    }
+  </style>
+</head>
+<body>
+  <nav class="navbar" id="navbar"></nav>
+
+  <div class="archive-layout">
+    <aside class="sidebar">
+      <div class="sidebar-title">Filters</div>
+
+      <div class="filter-group">
+        <div class="filter-label">Category</div>
+        <label class="filter-option"><input type="radio" name="category" value="" checked onchange="applyFilters()"> All Clothing</label>
+        <label class="filter-option"><input type="radio" name="category" value="Outerwear" onchange="applyFilters()"> Outerwear</label>
+        <label class="filter-option"><input type="radio" name="category" value="Tops" onchange="applyFilters()"> Tops</label>
+        <label class="filter-option"><input type="radio" name="category" value="Bottoms" onchange="applyFilters()"> Bottoms</label>
+        <label class="filter-option"><input type="radio" name="category" value="Footwear" onchange="applyFilters()"> Footwear</label>
+        <label class="filter-option"><input type="radio" name="category" value="Accessories" onchange="applyFilters()"> Accessories</label>
+      </div>
+
+      <div class="filter-divider"></div>
+
+      <div class="filter-group">
+        <div class="filter-label">Size</div>
+        <div class="size-options">
+          <button class="size-btn" data-size="XS" onclick="toggleSize(this)">XS</button>
+          <button class="size-btn" data-size="S" onclick="toggleSize(this)">S</button>
+          <button class="size-btn" data-size="M" onclick="toggleSize(this)">M</button>
+          <button class="size-btn" data-size="L" onclick="toggleSize(this)">L</button>
+          <button class="size-btn" data-size="XL" onclick="toggleSize(this)">XL</button>
+        </div>
+      </div>
+
+      <div class="filter-divider"></div>
+
+      <div class="filter-group">
+        <div class="filter-label">Condition</div>
+        <label class="filter-option"><input type="checkbox" value="Like New" onchange="applyFilters()"> Like New</label>
+        <label class="filter-option"><input type="checkbox" value="Excellent" onchange="applyFilters()"> Excellent</label>
+        <label class="filter-option"><input type="checkbox" value="Pre-Loved" onchange="applyFilters()"> Pre-Loved</label>
+      </div>
+
+      <div class="filter-divider"></div>
+
+      <div class="filter-group">
+        <div class="filter-label">Price</div>
+        <div class="price-inputs">
+          <input type="number" class="price-input" id="min-price" placeholder="Min" onchange="applyFilters()">
+          <span>-</span>
+          <input type="number" class="price-input" id="max-price" placeholder="Max" onchange="applyFilters()">
+        </div>
+      </div>
+    </aside>
+
+    <main class="main-content">
+      <div class="archive-header">
+        <div>
+          <h1>The Archive</h1>
+          <div class="sub">Curated second-hand pieces.</div>
+        </div>
+        <div class="sort-area">
+          Sort by:
+          <select class="sort-select" id="sort-select" onchange="applyFilters()">
+            <option value="">Newest Arrivals</option>
+            <option value="price_asc">Price: Low to High</option>
+            <option value="price_desc">Price: High to Low</option>
+            <option value="name_asc">Name: A-Z</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="search-bar">
+        <span class="icon">🔍</span>
+        <input type="text" id="search-input" placeholder="Search items by name..." oninput="debounceSearch()">
+      </div>
+
+      <div class="results-info" id="results-info"></div>
+      <div class="product-grid" id="product-grid">
+        <div class="loading"><div class="spinner"></div></div>
+      </div>
+      <div class="pagination" id="pagination"></div>
+    </main>
+  </div>
+
+  <footer class="footer">
+    <span class="footer-logo">VINTAGE</span>
+    <span class="footer-copy">&copy; 2026 VINTAGE THRIFT. ALL RIGHTS RESERVED.</span>
+  </footer>
+
+  <script src="/js/app.js"></script>
+  <script>
+    let currentPage = 1;
+    let selectedSize = '';
+    let searchTimer;
+
+    function toggleSize(btn) {
+      if (btn.classList.contains('active')) {
+        btn.classList.remove('active');
+        selectedSize = '';
+      } else {
+        document.querySelectorAll('.size-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        selectedSize = btn.dataset.size;
+      }
+      applyFilters();
+    }
+
+    function debounceSearch() {
+      clearTimeout(searchTimer);
+      searchTimer = setTimeout(() => applyFilters(), 400);
+    }
+
+    function applyFilters(page = 1) {
+      currentPage = page;
+      const params = new URLSearchParams();
+
+      const cat = document.querySelector('input[name="category"]:checked')?.value;
+      if (cat) params.set('category', cat);
+      if (selectedSize) params.set('size', selectedSize);
+
+      const conditions = [...document.querySelectorAll('.filter-group input[type="checkbox"]:checked')].map(c => c.value);
+      if (conditions.length === 1) params.set('condition', conditions[0]);
+
+      const minP = document.getElementById('min-price').value;
+      const maxP = document.getElementById('max-price').value;
+      if (minP) params.set('min_price', minP);
+      if (maxP) params.set('max_price', maxP);
+
+      const search = document.getElementById('search-input').value.trim();
+      if (search) params.set('search', search);
+
+      const sort = document.getElementById('sort-select').value;
+      if (sort) params.set('sort', sort);
+
+      params.set('page', page);
+      params.set('limit', 8);
+
+      loadProducts(params.toString());
+    }
+
+    async function loadProducts(query = 'page=1&limit=8') {
+      const grid = document.getElementById('product-grid');
+      grid.innerHTML = '<div class="loading"><div class="spinner"></div></div>';
+
+      try {
+        const data = await apiFetch(`/api/products?${query}`);
+        renderProducts(data.products, data.pagination);
+      } catch (e) {
+        grid.innerHTML = '<p>Error loading products</p>';
+      }
+    }
+
+    function renderProducts(products, pagination) {
+      const grid = document.getElementById('product-grid');
+      const info = document.getElementById('results-info');
+
+      info.textContent = `Showing ${products.length} of ${pagination.total} items`;
+
+      if (!products.length) {
+        grid.innerHTML = `
+          <div class="empty-state" style="grid-column:1/-1">
+            <div class="empty-state-icon">🔍</div>
+            <h3>No treasures found</h3>
+            <p>No products found matching your current filters. Try adjusting your selections or clearing them entirely to see our full curated collection.</p>
+            <button class="btn btn-primary" style="margin-top:16px" onclick="clearFilters()">Clear All Filters</button>
+          </div>`;
+        document.getElementById('pagination').innerHTML = '';
+        return;
+      }
+
+      grid.innerHTML = products.map(p => `
+        <div class="product-card">
+          <a href="/product.html?id=${p.id}">
+            <div class="product-card-img">
+              <img src="${getProductImage(p)}" alt="${p.name}" loading="lazy">
+              <div class="product-card-badge"><span class="badge badge-category">${p.category}</span></div>
+            </div>
+          </a>
+          <div class="product-card-body">
+            <a href="/product.html?id=${p.id}"><div class="product-card-name">${p.name}</div></a>
+            <div class="product-card-meta">
+              <span>Size: ${p.size}</span>
+              <span>${p.condition}</span>
+            </div>
+            <div class="product-card-price">${formatPrice(p.price)}</div>
+            <button class="btn btn-primary btn-block btn-sm" onclick="addToCart(${p.id})">Add to Cart</button>
+          </div>
+        </div>
+      `).join('');
+
+      renderPagination(pagination);
+    }
+
+    function renderPagination(p) {
+      const container = document.getElementById('pagination');
+      if (p.totalPages <= 1) { container.innerHTML = ''; return; }
+      let html = '';
+      for (let i = 1; i <= p.totalPages; i++) {
+        html += `<button class="page-btn ${i === p.page ? 'active' : ''}" onclick="applyFilters(${i})">${i}</button>`;
+      }
+      if (p.page < p.totalPages) {
+        html += `<button class="page-btn page-btn-nav" onclick="applyFilters(${p.page + 1})">Next ›</button>`;
+      }
+      container.innerHTML = html;
+    }
+
+    function clearFilters() {
+      document.querySelector('input[name="category"][value=""]').checked = true;
+      document.querySelectorAll('.size-btn').forEach(b => b.classList.remove('active'));
+      selectedSize = '';
+      document.querySelectorAll('.filter-group input[type="checkbox"]').forEach(c => c.checked = false);
+      document.getElementById('min-price').value = '';
+      document.getElementById('max-price').value = '';
+      document.getElementById('search-input').value = '';
+      document.getElementById('sort-select').value = '';
+      applyFilters();
+    }
+
+    async function addToCart(productId) {
+      if (!isLoggedIn()) { window.location.href = '/login.html'; return; }
+      try {
+        await apiFetch('/api/cart/add', { method: 'POST', body: JSON.stringify({ product_id: productId }) });
+        showToast('Item ditambahkan ke keranjang');
+        updateCartBadge();
+      } catch (e) { showToast(e.message, 'error'); }
+    }
+
+    applyFilters();
+  </script>
+</body>
+</html>

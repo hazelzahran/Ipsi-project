@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Panel — VINTAGE</title>
+  <link rel="stylesheet" href="/css/style.css">
+  <style>
+    .admin-page { max-width: 1100px; margin: 0 auto; padding: 32px 20px 48px; }
+    .admin-page h1 { font-family: var(--font-display); font-size: 32px; margin-bottom: 8px; }
+    .admin-sub { font-size: 14px; color: var(--color-text-secondary); margin-bottom: 24px; }
+    .admin-tabs { display: flex; gap: 4px; margin-bottom: 24px; background: var(--color-border-light); border-radius: var(--radius-sm); padding: 4px; }
+    .admin-tab {
+      flex: 1; padding: 10px; text-align: center; font-size: 13px; font-weight: 500;
+      border: none; background: none; border-radius: var(--radius-sm); cursor: pointer;
+      transition: all var(--transition); color: var(--color-text-secondary);
+    }
+    .admin-tab.active { background: white; color: var(--color-text); box-shadow: var(--shadow-sm); }
+    .admin-section { display: none; }
+    .admin-section.active { display: block; }
+    .admin-toolbar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
+    .admin-toolbar .count { font-size: 13px; color: var(--color-text-muted); }
+    .admin-table { width: 100%; border-collapse: collapse; font-size: 13px; background: white; border-radius: var(--radius-md); overflow: hidden; border: 1px solid var(--color-border-light); }
+    .admin-table th {
+      text-align: left; padding: 12px 14px; background: var(--color-bg);
+      font-weight: 500; font-size: 11px; text-transform: uppercase;
+      letter-spacing: 0.4px; color: var(--color-text-secondary);
+      border-bottom: 2px solid var(--color-border);
+    }
+    .admin-table td { padding: 12px 14px; border-bottom: 1px solid var(--color-border-light); vertical-align: middle; }
+    .admin-table tr:last-child td { border-bottom: none; }
+    .admin-table tr:hover td { background: var(--color-bg); }
+    .product-name-cell { display: flex; align-items: center; gap: 10px; }
+    .product-thumb { width: 40px; height: 48px; border-radius: 4px; overflow: hidden; background: #F0EDE8; flex-shrink: 0; }
+    .product-thumb img { width: 100%; height: 100%; object-fit: cover; }
+    .deleted-row td { opacity: 0.5; text-decoration: line-through; }
+    .status-select {
+      padding: 4px 8px; border: 1px solid var(--color-border);
+      border-radius: var(--radius-sm); font-size: 12px; background: white;
+    }
+
+    .add-product-form {
+      background: white; border: 1px solid var(--color-border-light);
+      border-radius: var(--radius-md); padding: 24px; margin-bottom: 24px;
+    }
+    .add-product-form h3 { font-family: var(--font-display); font-size: 18px; margin-bottom: 20px; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    @media (max-width: 768px) {
+      .form-row { grid-template-columns: 1fr; }
+      .admin-table { font-size: 12px; }
+    }
+  </style>
+</head>
+<body>
+  <nav class="navbar" id="navbar"></nav>
+
+  <div class="admin-page">
+    <h1>Admin Panel</h1>
+    <div class="admin-sub">Manage products and orders</div>
+
+    <div class="admin-tabs">
+      <button class="admin-tab active" onclick="switchTab('products')">Products</button>
+      <button class="admin-tab" onclick="switchTab('orders')">Orders</button>
+    </div>
+
+    <div class="admin-section active" id="section-products">
+      <div class="add-product-form" id="add-product-form" style="display:none">
+        <h3>Add New Product</h3>
+        <form onsubmit="addProduct(event)">
+          <div class="form-row">
+            <div class="form-group"><label class="form-label">Product Name</label><input class="form-input" id="p-name" required></div>
+            <div class="form-group"><label class="form-label">Category</label>
+              <select class="form-select" id="p-category" required>
+                <option value="Outerwear">Outerwear</option><option value="Tops">Tops</option>
+                <option value="Bottoms">Bottoms</option><option value="Footwear">Footwear</option>
+                <option value="Accessories">Accessories</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group"><label class="form-label">Description</label><textarea class="form-textarea" id="p-desc"></textarea></div>
+          <div class="form-row">
+            <div class="form-group"><label class="form-label">Condition</label>
+              <select class="form-select" id="p-condition" required>
+                <option value="Like New">Like New</option><option value="Excellent">Excellent</option><option value="Pre-Loved">Pre-Loved</option>
+              </select>
+            </div>
+            <div class="form-group"><label class="form-label">Size</label>
+              <select class="form-select" id="p-size" required>
+                <option value="XS">XS</option><option value="S">S</option><option value="M" selected>M</option><option value="L">L</option><option value="XL">XL</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group"><label class="form-label">Price (USD)</label><input class="form-input" type="number" step="0.01" id="p-price" required></div>
+          <div style="display:flex;gap:8px;margin-top:8px">
+            <button type="submit" class="btn btn-primary">Save Product</button>
+            <button type="button" class="btn btn-outline" onclick="toggleAddForm()">Cancel</button>
+          </div>
+        </form>
+      </div>
+
+      <div class="admin-toolbar">
+        <span class="count" id="product-count"></span>
+        <button class="btn btn-primary btn-sm" onclick="toggleAddForm()">+ Add Product</button>
+      </div>
+      <table class="admin-table">
+        <thead>
+          <tr><th>Product</th><th>Category</th><th>Condition</th><th>Size</th><th>Price</th><th>Stock</th><th>Actions</th></tr>
+        </thead>
+        <tbody id="products-tbody"></tbody>
+      </table>
+    </div>
+
+    <div class="admin-section" id="section-orders">
+      <div class="admin-toolbar">
+        <span class="count" id="order-count"></span>
+      </div>
+      <table class="admin-table">
+        <thead>
+          <tr><th>Order ID</th><th>Customer</th><th>Items</th><th>Total</th><th>Status</th><th>Date</th></tr>
+        </thead>
+        <tbody id="orders-tbody"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <span class="footer-logo">VINTAGE</span>
+    <span class="footer-copy">&copy; 2026 VINTAGE THRIFT. ALL RIGHTS RESERVED.</span>
+  </footer>
+
+  <script src="/js/app.js"></script>
+  <script>
+    if (!isLoggedIn() || !isAdmin()) { window.location.href = '/login.html'; }
+
+    function switchTab(tab) {
+      document.querySelectorAll('.admin-tab').forEach(t => t.classList.remove('active'));
+      document.querySelectorAll('.admin-section').forEach(s => s.classList.remove('active'));
+      event.target.classList.add('active');
+      document.getElementById(`section-${tab}`).classList.add('active');
+      if (tab === 'orders') loadAdminOrders();
+    }
+
+    function toggleAddForm() {
+      const form = document.getElementById('add-product-form');
+      form.style.display = form.style.display === 'none' ? 'block' : 'none';
+    }
+
+    async function loadProducts() {
+      try {
+        const products = await apiFetch('/api/admin/products');
+        document.getElementById('product-count').textContent = `${products.length} products`;
+        document.getElementById('products-tbody').innerHTML = products.map(p => `
+          <tr class="${p.is_deleted ? 'deleted-row' : ''}">
+            <td><div class="product-name-cell"><div class="product-thumb"><img src="${getProductImage(p)}" alt=""></div>${p.name}</div></td>
+            <td><span class="badge badge-category">${p.category}</span></td>
+            <td>${p.condition}</td>
+            <td>${p.size}</td>
+            <td>${formatPrice(p.price)}</td>
+            <td>${p.stock}</td>
+            <td>
+              ${p.is_deleted ? '<span style="font-size:11px;color:var(--color-text-muted)">Deleted</span>' :
+                `<button class="btn btn-danger btn-sm" onclick="deleteProduct(${p.id}, '${p.name.replace(/'/g, "\\'")}')">Delete</button>`}
+            </td>
+          </tr>
+        `).join('');
+      } catch (e) { showToast(e.message, 'error'); }
+    }
+
+    async function addProduct(e) {
+      e.preventDefault();
+      try {
+        await apiFetch('/api/admin/products', {
+          method: 'POST',
+          body: JSON.stringify({
+            name: document.getElementById('p-name').value,
+            description: document.getElementById('p-desc').value,
+            category: document.getElementById('p-category').value,
+            condition: document.getElementById('p-condition').value,
+            size: document.getElementById('p-size').value,
+            price: document.getElementById('p-price').value,
+          })
+        });
+        showToast('Produk berhasil ditambahkan');
+        toggleAddForm();
+        e.target.reset();
+        loadProducts();
+      } catch (e) { showToast(e.message, 'error'); }
+    }
+
+    async function deleteProduct(id, name) {
+      if (!confirm(`Hapus produk "${name}"? (soft delete)`)) return;
+      try {
+        await apiFetch(`/api/admin/products/${id}`, { method: 'DELETE' });
+        showToast('Produk dihapus (soft delete)');
+        loadProducts();
+      } catch (e) { showToast(e.message, 'error'); }
+    }
+
+    async function loadAdminOrders() {
+      try {
+        const orders = await apiFetch('/api/admin/orders');
+        document.getElementById('order-count').textContent = `${orders.length} orders`;
+        document.getElementById('orders-tbody').innerHTML = orders.map(o => `
+          <tr>
+            <td style="font-family:monospace;font-weight:500">${o.order_id}</td>
+            <td>${o.customer_name}<br><span style="font-size:11px;color:var(--color-text-muted)">${o.customer_email}</span></td>
+            <td>${o.item_count} items</td>
+            <td>${formatPrice(o.total_price)}</td>
+            <td>
+              <select class="status-select" value="${o.status}" onchange="updateStatus('${o.order_id}', this.value)">
+                ${['pending','processing','shipped','completed','cancelled'].map(s => `<option value="${s}" ${s === o.status ? 'selected' : ''}>${s}</option>`).join('')}
+              </select>
+            </td>
+            <td style="font-size:12px;color:var(--color-text-muted)">${formatDate(o.created_at)}</td>
+          </tr>
+        `).join('');
+      } catch (e) { showToast(e.message, 'error'); }
+    }
+
+    async function updateStatus(orderId, status) {
+      try {
+        await apiFetch(`/api/admin/orders/${orderId}/status`, { method: 'PUT', body: JSON.stringify({ status }) });
+        showToast('Status order diperbarui');
+      } catch (e) { showToast(e.message, 'error'); }
+    }
+
+    loadProducts();
+  </script>
+</body>
+</html>

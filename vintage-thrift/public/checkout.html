@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Checkout — VINTAGE</title>
+  <link rel="stylesheet" href="/css/style.css">
+  <style>
+    .checkout-page { max-width: 960px; margin: 0 auto; padding: 32px 20px 48px; }
+    .checkout-page h1 { font-family: var(--font-display); font-size: 32px; margin-bottom: 8px; }
+    .checkout-sub { font-size: 14px; color: var(--color-text-secondary); margin-bottom: 32px; }
+    .checkout-grid { display: grid; grid-template-columns: 1.3fr 1fr; gap: 32px; }
+    .checkout-card {
+      background: white; border: 1px solid var(--color-border-light);
+      border-radius: var(--radius-md); padding: 24px;
+    }
+    .checkout-card h2 { font-family: var(--font-display); font-size: 18px; margin-bottom: 20px; }
+    .step-indicator {
+      display: flex; gap: 4px; margin-bottom: 28px;
+    }
+    .step {
+      flex: 1; height: 4px; border-radius: 2px; background: var(--color-border);
+      transition: background 0.3s;
+    }
+    .step.active { background: var(--color-primary); }
+    .step.done { background: var(--color-success); }
+    .order-item {
+      display: flex; gap: 12px; padding: 12px 0;
+      border-bottom: 1px solid var(--color-border-light);
+    }
+    .order-item:last-child { border-bottom: none; }
+    .order-item-img {
+      width: 56px; height: 68px; border-radius: var(--radius-sm);
+      overflow: hidden; background: #F0EDE8; flex-shrink: 0;
+    }
+    .order-item-img img { width: 100%; height: 100%; object-fit: cover; }
+    .order-item-name { font-size: 13px; font-weight: 500; }
+    .order-item-meta { font-size: 11px; color: var(--color-text-muted); }
+    .order-item-price { font-size: 14px; font-weight: 600; margin-left: auto; }
+    .summary-row { display: flex; justify-content: space-between; padding: 6px 0; font-size: 13px; color: var(--color-text-secondary); }
+    .summary-row.total { font-size: 16px; font-weight: 600; color: var(--color-text); border-top: 2px solid var(--color-border); padding-top: 12px; margin-top: 8px; }
+    .payment-option {
+      display: flex; align-items: center; gap: 10px;
+      padding: 12px 14px; border: 1.5px solid var(--color-border);
+      border-radius: var(--radius-sm); margin-bottom: 8px; cursor: pointer;
+      transition: border-color var(--transition);
+    }
+    .payment-option:hover, .payment-option.selected { border-color: var(--color-primary); }
+    .payment-option input { accent-color: var(--color-primary); }
+    .payment-option label { font-size: 14px; cursor: pointer; flex: 1; }
+    .success-overlay {
+      position: fixed; inset: 0; background: rgba(0,0,0,0.5);
+      display: flex; align-items: center; justify-content: center; z-index: 1000;
+    }
+    .success-card {
+      background: white; border-radius: var(--radius-lg); padding: 40px;
+      text-align: center; max-width: 420px; width: 90%;
+    }
+    .success-icon { font-size: 48px; margin-bottom: 16px; }
+    .success-card h2 { font-family: var(--font-display); font-size: 24px; margin-bottom: 8px; }
+    .success-card p { font-size: 14px; color: var(--color-text-secondary); margin-bottom: 20px; }
+    .success-card .order-id-box { background: var(--color-bg); padding: 12px; border-radius: var(--radius-sm); font-size: 16px; font-weight: 600; letter-spacing: 1px; margin-bottom: 20px; }
+    @media (max-width: 768px) {
+      .checkout-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <nav class="navbar" id="navbar"></nav>
+
+  <div class="checkout-page">
+    <h1>Checkout</h1>
+    <div class="checkout-sub">Complete your order in a few simple steps</div>
+    <div class="step-indicator">
+      <div class="step done" id="step-1"></div>
+      <div class="step active" id="step-2"></div>
+      <div class="step" id="step-3"></div>
+      <div class="step" id="step-4"></div>
+      <div class="step" id="step-5"></div>
+    </div>
+    <div class="checkout-grid">
+      <div>
+        <div class="checkout-card" id="checkout-form-card">
+          <h2>Shipping Address</h2>
+          <div class="form-group"><label class="form-label">Full Name</label><input class="form-input" id="ship-name" placeholder="Nama lengkap"></div>
+          <div class="form-group"><label class="form-label">Address</label><textarea class="form-textarea" id="ship-address" placeholder="Alamat lengkap"></textarea></div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+            <div class="form-group"><label class="form-label">City</label><input class="form-input" id="ship-city" placeholder="Kota"></div>
+            <div class="form-group"><label class="form-label">Postal Code</label><input class="form-input" id="ship-zip" placeholder="Kode Pos"></div>
+          </div>
+          <div class="form-group"><label class="form-label">Phone</label><input class="form-input" id="ship-phone" placeholder="Nomor telepon"></div>
+
+          <h2 style="margin-top:28px">Payment Method</h2>
+          <div class="payment-option selected" onclick="selectPayment(this, 'bank_transfer')">
+            <input type="radio" name="payment" value="bank_transfer" checked>
+            <label>🏦 Bank Transfer</label>
+          </div>
+          <div class="payment-option" onclick="selectPayment(this, 'e_wallet')">
+            <input type="radio" name="payment" value="e_wallet">
+            <label>📱 E-Wallet (GoPay/OVO/Dana)</label>
+          </div>
+          <div class="payment-option" onclick="selectPayment(this, 'cod')">
+            <input type="radio" name="payment" value="cod">
+            <label>💵 Cash on Delivery</label>
+          </div>
+
+          <button class="btn btn-primary btn-lg btn-block" style="margin-top:24px" onclick="placeOrder()" id="place-order-btn">Place Order</button>
+        </div>
+      </div>
+      <div>
+        <div class="checkout-card">
+          <h2>Order Summary</h2>
+          <div id="order-items"></div>
+          <div style="margin-top:16px" id="order-summary"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <span class="footer-logo">VINTAGE</span>
+    <span class="footer-copy">&copy; 2026 VINTAGE THRIFT. ALL RIGHTS RESERVED.</span>
+  </footer>
+
+  <script src="/js/app.js"></script>
+  <script>
+    let selectedPayment = 'bank_transfer';
+    let cartData = null;
+
+    function selectPayment(el, method) {
+      document.querySelectorAll('.payment-option').forEach(o => o.classList.remove('selected'));
+      el.classList.add('selected');
+      el.querySelector('input').checked = true;
+      selectedPayment = method;
+    }
+
+    async function loadCheckout() {
+      if (!isLoggedIn()) { window.location.href = '/login.html'; return; }
+      try {
+        cartData = await apiFetch('/api/cart');
+        if (!cartData.items.length) { window.location.href = '/cart.html'; return; }
+        renderOrderSummary(cartData);
+        const user = getUser();
+        if (user) document.getElementById('ship-name').value = user.name;
+      } catch (e) { window.location.href = '/cart.html'; }
+    }
+
+    function renderOrderSummary(data) {
+      const shipping = 15000;
+      document.getElementById('order-items').innerHTML = data.items.map(item => `
+        <div class="order-item">
+          <div class="order-item-img"><img src="${getProductImage(item)}" alt="${item.name}"></div>
+          <div>
+            <div class="order-item-name">${item.name}</div>
+            <div class="order-item-meta">${item.size} · ${item.condition}</div>
+          </div>
+          <div class="order-item-price">${formatPrice(item.price)}</div>
+        </div>
+      `).join('');
+
+      document.getElementById('order-summary').innerHTML = `
+        <div class="summary-row"><span>Subtotal</span><span>${formatPrice(data.total)}</span></div>
+        <div class="summary-row"><span>Shipping</span><span>Rp ${shipping.toLocaleString()}</span></div>
+        <div class="summary-row total"><span>Total</span><span>${formatPrice(data.total)} + Rp ${shipping.toLocaleString()}</span></div>
+      `;
+    }
+
+    async function placeOrder() {
+      const address = [
+        document.getElementById('ship-name').value,
+        document.getElementById('ship-address').value,
+        document.getElementById('ship-city').value,
+        document.getElementById('ship-zip').value,
+        document.getElementById('ship-phone').value
+      ].filter(Boolean).join(', ');
+
+      if (!document.getElementById('ship-address').value || !document.getElementById('ship-city').value) {
+        showToast('Mohon lengkapi alamat pengiriman', 'error');
+        return;
+      }
+
+      const btn = document.getElementById('place-order-btn');
+      btn.disabled = true;
+      btn.textContent = 'Processing...';
+
+      try {
+        const result = await apiFetch('/api/orders/checkout', {
+          method: 'POST',
+          body: JSON.stringify({ shipping_address: address, payment_method: selectedPayment })
+        });
+
+        document.querySelectorAll('.step').forEach(s => s.classList.add('done'));
+
+        document.body.insertAdjacentHTML('beforeend', `
+          <div class="success-overlay" onclick="if(event.target===this)window.location.href='/orders.html'">
+            <div class="success-card">
+              <div class="success-icon">✅</div>
+              <h2>Order Placed!</h2>
+              <p>Pesanan Anda berhasil dibuat dan sedang diproses.</p>
+              <div class="order-id-box">${result.order_id}</div>
+              <a href="/orders.html" class="btn btn-primary btn-block">View My Orders</a>
+              <a href="/archive.html" class="btn btn-outline btn-block" style="margin-top:8px">Continue Shopping</a>
+            </div>
+          </div>
+        `);
+        updateCartBadge();
+      } catch (e) {
+        showToast(e.message, 'error');
+        btn.disabled = false;
+        btn.textContent = 'Place Order';
+      }
+    }
+
+    loadCheckout();
+  </script>
+</body>
+</html>

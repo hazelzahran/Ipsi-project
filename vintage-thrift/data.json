@@ -1,0 +1,271 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "email": "admin@vintage.com",
+      "password": "$2a$10$mlJS4FdiCdufuiD1WwRfT.pLIQYFVkLJk/2nJWMyuSBoi6NnoENEW",
+      "name": "Admin Vintage",
+      "role": "admin",
+      "created_at": "2026-04-23T07:48:37.442Z"
+    },
+    {
+      "id": 2,
+      "email": "customer@vintage.com",
+      "password": "$2a$10$jwEuCfjuKUjKTGPwrK/t.ucvX7hG7Kg4InB5/4wLeMxs67DwKJsi2",
+      "name": "Hazel Zahran",
+      "role": "customer",
+      "created_at": "2026-04-23T07:48:37.443Z"
+    }
+  ],
+  "products": [
+    {
+      "id": 1,
+      "name": "Vintage '98 Leather Biker Jacket",
+      "description": "An authentic slice of late 90s rebellion. This asymmetrical biker jacket features thick, buttery cowhide that has aged to perfection. Asymmetrical zip closure with three external zip pockets.",
+      "category": "Outerwear",
+      "condition": "Pre-Loved",
+      "size": "M",
+      "price": 450,
+      "image_url": "",
+      "stock": 1,
+      "is_deleted": 0,
+      "created_at": "2026-04-07T07:48:37.443Z"
+    },
+    {
+      "id": 2,
+      "name": "Distressed Leather Bomber",
+      "description": "Classic bomber silhouette in weathered brown leather. Ribbed cuffs and hem with vintage brass hardware. Interior fully lined.",
+      "category": "Outerwear",
+      "condition": "Excellent",
+      "size": "M",
+      "price": 185,
+      "image_url": "",
+      "stock": 1,
+      "is_deleted": 0,
+      "created_at": "2026-04-08T07:48:37.443Z"
+    },
+    {
+      "id": 3,
+      "name": "90s Faded Denim Jacket",
+      "description": "Perfectly worn-in denim jacket with natural fading. Oversized fit with button closure. Two chest pockets and two side pockets.",
+      "category": "Outerwear",
+      "condition": "Pre-Loved",
+      "size": "L",
+      "price": 120,
+      "image_url": "",
+      "stock": 1,
+      "is_deleted": 0,
+      "created_at": "2026-04-09T07:48:37.443Z"
+    },
+    {
+      "id": 4,
+      "name": "Original 1994 Tour Tee",
+      "description": "Authentic concert merchandise from the 1994 world tour. Heavyweight cotton with original screen print intact. Minor cracking adds character.",
+      "category": "Tops",
+      "condition": "Pre-Loved",
+      "size": "L",
+      "price": 85,
+      "image_url": "",
+      "stock": 1,
+      "is_deleted": 0,
+      "created_at": "2026-04-10T07:48:37.443Z"
+    },
+    {
+      "id": 5,
+      "name": "Hand-knit Wool Cardigan",
+      "description": "Artisan hand-knitted cardigan in cream wool. Cable knit pattern throughout. Pearl button closure. Warm and cozy for layering.",
+      "category": "Tops",
+      "condition": "Excellent",
+      "size": "M",
+      "price": 150,
+      "image_url": "",
+      "stock": 1,
+      "is_deleted": 0,
+      "created_at": "2026-04-11T07:48:37.443Z"
+    },
+    {
+      "id": 6,
+      "name": "Military Surplus Cargos",
+      "description": "Genuine military surplus cargo pants. Multiple pocket design with drawstring ankle. Durable ripstop fabric in olive green.",
+      "category": "Bottoms",
+      "condition": "Excellent",
+      "size": "M",
+      "price": 65,
+      "image_url": "",
+      "stock": 1,
+      "is_deleted": 0,
+      "created_at": "2026-04-12T07:48:37.443Z"
+    },
+    {
+      "id": 7,
+      "name": "Classic Oxford Shirt",
+      "description": "Timeless button-down oxford in crisp white. Medium weight cotton with chest pocket. Perfect for layering or wearing alone.",
+      "category": "Tops",
+      "condition": "Like New",
+      "size": "S",
+      "price": 60,
+      "image_url": "",
+      "stock": 1,
+      "is_deleted": 0,
+      "created_at": "2026-04-13T07:48:37.443Z"
+    },
+    {
+      "id": 8,
+      "name": "Horsebit Leather Loafers",
+      "description": "Italian-made leather loafers with signature horsebit detail. Leather sole with light patina. Timeless style that works with everything.",
+      "category": "Footwear",
+      "condition": "Excellent",
+      "size": "M",
+      "price": 165,
+      "image_url": "",
+      "stock": 1,
+      "is_deleted": 0,
+      "created_at": "2026-04-14T07:48:37.443Z"
+    },
+    {
+      "id": 9,
+      "name": "Tortoiseshell Frames",
+      "description": "Vintage acetate sunglasses in classic tortoiseshell pattern. UV protection lenses. Comes with original leather case.",
+      "category": "Accessories",
+      "condition": "Like New",
+      "size": "S",
+      "price": 90,
+      "image_url": "",
+      "stock": 1,
+      "is_deleted": 0,
+      "created_at": "2026-04-15T07:48:37.443Z"
+    },
+    {
+      "id": 10,
+      "name": "Aran Wool Sweater",
+      "description": "Traditional Irish Aran sweater in natural cream wool. Intricate cable and diamond patterns. Medium weight, perfect for fall.",
+      "category": "Tops",
+      "condition": "Excellent",
+      "size": "M",
+      "price": 180,
+      "image_url": "",
+      "stock": 1,
+      "is_deleted": 0,
+      "created_at": "2026-04-16T07:48:37.443Z"
+    },
+    {
+      "id": 11,
+      "name": "Prada Nylon Mini Bag",
+      "description": "Iconic Prada nylon mini bag in black. Silver-tone hardware with zip closure. Includes authenticity card and dust bag.",
+      "category": "Accessories",
+      "condition": "Excellent",
+      "size": "S",
+      "price": 450,
+      "image_url": "",
+      "stock": 1,
+      "is_deleted": 0,
+      "created_at": "2026-04-17T07:48:37.443Z"
+    },
+    {
+      "id": 12,
+      "name": "Nike Air Max 90 Vintage",
+      "description": "Retro Nike Air Max 90 in grey and hot pink colorway. Visible Air unit. Minor sole wear, uppers in excellent condition.",
+      "category": "Footwear",
+      "condition": "Pre-Loved",
+      "size": "M",
+      "price": 250,
+      "image_url": "",
+      "stock": 1,
+      "is_deleted": 0,
+      "created_at": "2026-04-18T07:48:37.443Z"
+    },
+    {
+      "id": 13,
+      "name": "Adidas Vintage Tracktop",
+      "description": "Classic Adidas track jacket in navy with three-stripe detail. Full zip with stand collar. Original label intact.",
+      "category": "Outerwear",
+      "condition": "Excellent",
+      "size": "L",
+      "price": 50,
+      "image_url": "",
+      "stock": 1,
+      "is_deleted": 0,
+      "created_at": "2026-04-19T07:48:37.443Z"
+    },
+    {
+      "id": 14,
+      "name": "Levi's 501 Selvedge Jeans",
+      "description": "Premium selvedge denim Levi's 501. Natural indigo fading with whisker details. Button fly. Made in USA.",
+      "category": "Bottoms",
+      "condition": "Pre-Loved",
+      "size": "M",
+      "price": 140,
+      "image_url": "",
+      "stock": 1,
+      "is_deleted": 0,
+      "created_at": "2026-04-20T07:48:37.443Z"
+    },
+    {
+      "id": 15,
+      "name": "Cashmere Turtleneck",
+      "description": "Luxurious 100% cashmere turtleneck in charcoal grey. Incredibly soft with fine gauge knit. Minimal pilling.",
+      "category": "Tops",
+      "condition": "Like New",
+      "size": "S",
+      "price": 195,
+      "image_url": "",
+      "stock": 1,
+      "is_deleted": 0,
+      "created_at": "2026-04-21T07:48:37.443Z"
+    },
+    {
+      "id": 16,
+      "name": "Canvas Tote Bag",
+      "description": "Heavy-duty canvas tote with leather handles. Interior zip pocket. Perfect everyday carry with natural patina developing over time.",
+      "category": "Accessories",
+      "condition": "Like New",
+      "size": "S",
+      "price": 45,
+      "image_url": "",
+      "stock": 1,
+      "is_deleted": 0,
+      "created_at": "2026-04-22T07:48:37.443Z"
+    }
+  ],
+  "cart_items": [],
+  "orders": [
+    {
+      "id": 1,
+      "order_id": "VNT-D44F09F0",
+      "user_id": 2,
+      "total_price": 635,
+      "shipping_address": "Jl. Veteran No. 10, Malang, Jawa Timur 65145",
+      "shipping_cost": 15000,
+      "payment_method": "bank_transfer",
+      "status": "completed",
+      "created_at": "2026-04-18T07:48:37.444Z",
+      "updated_at": "2026-04-20T07:48:37.444Z"
+    }
+  ],
+  "order_items": [
+    {
+      "id": 1,
+      "order_id": "VNT-D44F09F0",
+      "product_id": 1,
+      "snapshot_name": "Vintage '98 Leather Biker Jacket",
+      "snapshot_price": 450,
+      "snapshot_condition": "Pre-Loved",
+      "snapshot_size": "M",
+      "snapshot_image": "",
+      "snapshot_category": "Outerwear",
+      "quantity": 1
+    },
+    {
+      "id": 2,
+      "order_id": "VNT-D44F09F0",
+      "product_id": 2,
+      "snapshot_name": "Distressed Leather Bomber",
+      "snapshot_price": 185,
+      "snapshot_condition": "Excellent",
+      "snapshot_size": "M",
+      "snapshot_image": "",
+      "snapshot_category": "Outerwear",
+      "quantity": 1
+    }
+  ]
+}

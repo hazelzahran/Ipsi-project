@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VINTAGE — Curated Thrift Fashion</title>
+  <meta name="description" content="Discover rare, one-of-a-kind designer pieces sourced from private collections worldwide.">
+  <link rel="stylesheet" href="/css/style.css">
+  <style>
+    .hero {
+      position: relative; height: 480px; overflow: hidden;
+      display: flex; align-items: flex-end; justify-content: center;
+      text-align: center; padding: 60px 20px;
+      background: linear-gradient(135deg, #D4C5A9 0%, #C9B896 30%, #8B7355 70%, #5C4A32 100%);
+    }
+    .hero::before {
+      content: ''; position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.1) 50%, transparent 100%);
+    }
+    .hero-content { position: relative; z-index: 1; color: white; max-width: 600px; }
+    .hero-content h1 {
+      font-family: var(--font-display); font-size: 48px; font-weight: 600;
+      margin-bottom: 12px; letter-spacing: -0.5px;
+    }
+    .hero-content p { font-size: 15px; opacity: 0.85; margin-bottom: 28px; line-height: 1.6; }
+    .hero-cta {
+      display: inline-block; padding: 14px 32px;
+      background: var(--color-primary); color: white;
+      font-size: 12px; font-weight: 600;
+      letter-spacing: 2px; text-transform: uppercase;
+      border-radius: var(--radius-sm);
+      transition: all 0.3s ease;
+    }
+    .hero-cta:hover { background: #3D2A5E; transform: translateY(-2px); box-shadow: 0 8px 25px rgba(45,27,78,0.3); }
+    .home-section { padding: 48px 40px; }
+    .arrivals-grid {
+      display: grid; gap: 16px;
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: 280px 280px;
+    }
+    .arrival-card {
+      position: relative; border-radius: var(--radius-md); overflow: hidden;
+      background: #F0EDE8; cursor: pointer;
+    }
+    .arrival-card:first-child { grid-row: 1 / 3; }
+    .arrival-card img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s ease; }
+    .arrival-card:hover img { transform: scale(1.05); }
+    .arrival-card-info {
+      position: absolute; bottom: 0; left: 0; right: 0;
+      padding: 16px; background: linear-gradient(transparent, rgba(0,0,0,0.6));
+      color: white;
+    }
+    .arrival-card-info .year { font-size: 10px; text-transform: uppercase; letter-spacing: 1px; opacity: 0.8; }
+    .arrival-card-info .name { font-family: var(--font-display); font-size: 18px; font-weight: 600; }
+    .arrival-card-info .price { font-size: 14px; font-weight: 500; float: right; margin-top: -20px; }
+    .curated-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+    .curated-card { cursor: pointer; transition: transform 0.3s; }
+    .curated-card:hover { transform: translateY(-4px); }
+    .curated-card-img {
+      aspect-ratio: 1; border-radius: var(--radius-md); overflow: hidden;
+      background: #F0EDE8; margin-bottom: 10px;
+    }
+    .curated-card-img img { width: 100%; height: 100%; object-fit: cover; }
+    .curated-card .cat { font-size: 10px; text-transform: uppercase; letter-spacing: 1px; color: var(--color-primary); font-weight: 600; }
+    .curated-card .name { font-size: 14px; font-weight: 500; margin: 2px 0; }
+    .curated-card .price { font-size: 14px; color: var(--color-text-secondary); }
+    @media (max-width: 768px) {
+      .hero { height: 380px; }
+      .hero-content h1 { font-size: 32px; }
+      .arrivals-grid { grid-template-columns: 1fr; grid-template-rows: auto; }
+      .arrival-card:first-child { grid-row: auto; }
+      .curated-grid { grid-template-columns: repeat(2, 1fr); }
+      .home-section { padding: 32px 16px; }
+    }
+  </style>
+</head>
+<body>
+  <nav class="navbar" id="navbar"></nav>
+
+  <section class="hero">
+    <div class="hero-content">
+      <h1>Curated Archive</h1>
+      <p>Discover rare, one-of-a-kind designer pieces sourced from private collections worldwide.</p>
+      <a href="/archive.html" class="hero-cta">Explore The Collection</a>
+    </div>
+  </section>
+
+  <section class="home-section">
+    <div class="section-header">
+      <h2 class="section-title">New Arrivals</h2>
+      <a href="/archive.html" class="section-link">View All</a>
+    </div>
+    <div class="arrivals-grid" id="arrivals-grid">
+      <div class="loading"><div class="spinner"></div></div>
+    </div>
+  </section>
+
+  <section class="home-section">
+    <div class="section-header">
+      <h2 class="section-title">Curated For You</h2>
+      <a href="/archive.html" class="section-link">View All</a>
+    </div>
+    <div class="curated-grid" id="curated-grid">
+      <div class="loading"><div class="spinner"></div></div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <span class="footer-logo">VINTAGE</span>
+    <span class="footer-copy">&copy; 2026 VINTAGE THRIFT. ALL RIGHTS RESERVED.</span>
+  </footer>
+
+  <script src="/js/app.js"></script>
+  <script>
+    async function loadHomepage() {
+      try {
+        const data = await apiFetch('/api/products/featured');
+        renderArrivals(data.newArrivals);
+        renderCurated(data.curated);
+      } catch (e) {
+        document.getElementById('arrivals-grid').innerHTML = '<p>Failed to load products</p>';
+      }
+    }
+
+    function renderArrivals(products) {
+      const grid = document.getElementById('arrivals-grid');
+      if (!products.length) { grid.innerHTML = '<p>No products yet</p>'; return; }
+      grid.innerHTML = products.slice(0, 4).map((p, i) => `
+        <div class="arrival-card" onclick="location.href='/product.html?id=${p.id}'">
+          <img src="${getProductImage(p)}" alt="${p.name}" loading="lazy">
+          <div class="arrival-card-info">
+            <div class="year">${new Date(p.created_at).getFullYear()} ARCHIVE</div>
+            <div class="name">${p.name}</div>
+            <div class="price">${formatPrice(p.price)}</div>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function renderCurated(products) {
+      const grid = document.getElementById('curated-grid');
+      if (!products.length) { grid.innerHTML = '<p>No products yet</p>'; return; }
+      grid.innerHTML = products.map(p => `
+        <div class="curated-card" onclick="location.href='/product.html?id=${p.id}'">
+          <div class="curated-card-img"><img src="${getProductImage(p)}" alt="${p.name}" loading="lazy"></div>
+          <div class="cat">${p.category}</div>
+          <div class="name">${p.name}</div>
+          <div class="price">${formatPrice(p.price)}</div>
+        </div>
+      `).join('');
+    }
+
+    loadHomepage();
+  </script>
+</body>
+</html>
