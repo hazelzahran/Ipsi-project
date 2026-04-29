@@ -20,6 +20,9 @@ Route::get('/', function () {
     ]);
 })->name('home');
 
+
+
+
 Route::get('/catalog', function (Request $request) {
     $selectedCategories = collect(Arr::wrap($request->input('category', [])))
         ->map(static fn ($value) => trim((string) $value))
