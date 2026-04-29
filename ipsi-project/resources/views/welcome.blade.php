@@ -13,7 +13,9 @@
         <main class="flex-1">
             <section class="relative mt-6 overflow-hidden rounded-4xl border border-stone-200 bg-stone-900 text-white shadow-2xl">
                 <div class="absolute inset-0">
-                    <img src="{{ $featuredCollections[0]['image'] }}" alt="Hero feature" class="h-full w-full object-cover opacity-85">
+                    @if(isset($featuredCollections[0]))
+    <img src="{{ $featuredCollections[0]['image'] }}">
+@endif
                     <div class="absolute inset-0 bg-linear-to-t from-stone-950 via-stone-950/50 to-stone-950/10"></div>
                 </div>
                 <div class="relative grid min-h-136 items-end p-8 sm:p-12 lg:grid-cols-[1.2fr_0.8fr] lg:p-14">
