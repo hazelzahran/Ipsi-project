@@ -23,7 +23,7 @@ class ProductSeeder extends Seeder
                 'price' => 185,
                 'stock' => 1,
                 'status' => 'available',
-                'primary_image_path' => 'resources/images/Vintage leather jacket.jpg',
+                'primary_image_path' => 'images/Vintage leather jacket.jpg',
                 'is_active' => true,
             ],
             [
@@ -36,7 +36,7 @@ class ProductSeeder extends Seeder
                 'price' => 210,
                 'stock' => 1,
                 'status' => 'available',
-                'primary_image_path' => 'resources/images/Vintage leather jacket back view.jpg',
+                'primary_image_path' => 'images/Vintage leather jacket back view.jpg',
                 'is_active' => true,
             ],
             [
@@ -49,7 +49,7 @@ class ProductSeeder extends Seeder
                 'price' => 120,
                 'stock' => 1,
                 'status' => 'available',
-                'primary_image_path' => 'resources/images/Chunky Knit Sweater.jpg',
+                'primary_image_path' => 'images/Chunky Knit Sweater.jpg',
                 'is_active' => true,
             ],
             [
@@ -62,7 +62,7 @@ class ProductSeeder extends Seeder
                 'price' => 138,
                 'stock' => 1,
                 'status' => 'available',
-                'primary_image_path' => 'resources/images/Faded Denim Jacket.jpg',
+                'primary_image_path' => 'images/Faded Denim Jacket.jpg',
                 'is_active' => true,
             ],
             [
@@ -75,7 +75,7 @@ class ProductSeeder extends Seeder
                 'price' => 72,
                 'stock' => 1,
                 'status' => 'available',
-                'primary_image_path' => 'resources/images/vintage white cotton button down shirt hanging on minimalist black wire hanger against plain wall.jpg',
+                'primary_image_path' => 'images/vintage white cotton button down shirt hanging on minimalist black wire hanger against plain wall.jpg',
                 'is_active' => true,
             ],
             [
@@ -88,7 +88,7 @@ class ProductSeeder extends Seeder
                 'price' => 58,
                 'stock' => 1,
                 'status' => 'available',
-                'primary_image_path' => 'resources/images/Vintage Band Tee.jpg',
+                'primary_image_path' => 'images/Vintage Band Tee.jpg',
                 'is_active' => true,
             ],
             [
@@ -101,7 +101,7 @@ class ProductSeeder extends Seeder
                 'price' => 84,
                 'stock' => 1,
                 'status' => 'available',
-                'primary_image_path' => 'resources/images/Cargo Pants.jpg',
+                'primary_image_path' => 'images/Cargo Pants.jpg',
                 'is_active' => true,
             ],
             [
@@ -114,7 +114,7 @@ class ProductSeeder extends Seeder
                 'price' => 110,
                 'stock' => 1,
                 'status' => 'available',
-                'primary_image_path' => 'resources/images/Silk Floral Midi Skirt.jpg',
+                'primary_image_path' => 'images/Silk Floral Midi Skirt.jpg',
                 'is_active' => true,
             ],
             [
@@ -127,7 +127,7 @@ class ProductSeeder extends Seeder
                 'price' => 145,
                 'stock' => 1,
                 'status' => 'available',
-                'primary_image_path' => 'resources/images/image 3.jpg',
+                'primary_image_path' => 'images/image 3.jpg',
                 'is_active' => true,
             ],
             [
@@ -140,7 +140,7 @@ class ProductSeeder extends Seeder
                 'price' => 95,
                 'stock' => 1,
                 'status' => 'available',
-                'primary_image_path' => 'resources/images/Image.jpg',
+                'primary_image_path' => 'images/Image.jpg',
                 'is_active' => true,
             ],
             [
@@ -153,7 +153,7 @@ class ProductSeeder extends Seeder
                 'price' => 150,
                 'stock' => 1,
                 'status' => 'available',
-                'primary_image_path' => 'resources/images/Vintage denim.jpg',
+                'primary_image_path' => 'images/Vintage denim.jpg',
                 'is_active' => true,
             ],
         ];

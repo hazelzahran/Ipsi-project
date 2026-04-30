@@ -78,7 +78,7 @@
                             <div class="grid grid-cols-[3.5rem_1fr] gap-3">
                                 <div class="aspect-square overflow-hidden rounded-xl bg-stone-100">
                                     @if (!empty($item->primary_image_path))
-                                        <img src="{{ Vite::asset($item->primary_image_path) }}" alt="{{ $item->name }}" class="h-full w-full object-cover">
+                                        <img src="{{ asset($item->primary_image_path) }}" alt="{{ $item->name }}" class="h-full w-full object-cover">
                                     @else
                                         <div class="flex h-full w-full items-center justify-center bg-stone-200 text-xs text-stone-500">No Image</div>
                                     @endif

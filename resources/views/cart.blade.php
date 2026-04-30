@@ -17,7 +17,7 @@
                     <div class="row g-0 align-items-center">
                         <div class="col-auto">
                             @if (!empty($item['product']->primary_image_path))
-                                <img src="{{ Vite::asset($item['product']->primary_image_path) }}" alt="{{ $item['product']->name }}" class="img-fluid rounded-start" style="width: 140px; height: 140px; object-fit: cover;">
+                                <img src="{{ asset($item['product']->primary_image_path) }}" alt="{{ $item['product']->name }}" class="img-fluid rounded-start" style="width: 140px; height: 140px; object-fit: cover;">
                             @else
                                 <div class="d-flex align-items-center justify-content-center bg-secondary text-white rounded-start" style="width: 140px; height: 140px;">
                                     No Image

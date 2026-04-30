@@ -5,6 +5,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Route;
 
+
 Route::get('/', function () {
     $homeProducts = Product::query()
         ->where('status', 'available')
@@ -228,3 +229,56 @@ Route::get('/order/confirmed', function () {
         'total' => $subtotal + $shipping,
     ]);
 })->name('order.confirmed');
+
+Route::get('/admin/products', function () {
+    return view('admin.products');
+});
+
+Route::get('/admin/add-product', function () {
+    return view('admin.add-product');
+});
+
+Route::get('/admin/products', function () {
+    return view('admin.products');
+});
+
+Route::get('/admin/add-product', function () {
+    return view('admin.add-product');
+});
+
+Route::get('/admin/products/{id}/edit', function ($id) {
+    return view('admin.edit-product');
+});
+
+Route::post('/admin/products/{id}/update', function (Request $request, $id) {
+
+    $product = \App\Models\Product::find($id);
+
+    if (!$product) {
+        return "Product not found";
+    }
+
+    $product->name = $request->name;
+    $product->category = $request->category;
+    $product->status = $request->status;
+    $product->price = $request->price;
+    $product->description = $request->description;
+
+    $product->save();
+
+    return redirect('/admin/products')->with('success', 'Updated!');
+});
+Route::get('/admin/products', function () {
+
+    $products = \App\Models\Product::latest()->get();
+
+    return view('admin.products', compact('products'));
+});
+
+Route::get('/admin/orders/detail', function () {
+    return view('admin.order-detail');
+});
+
+Route::get('/admin/orders', function () {
+    return view('admin.orders');
+});
