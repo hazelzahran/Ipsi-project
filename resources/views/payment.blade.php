@@ -45,7 +45,7 @@
                                             <p class="text-[11px] uppercase tracking-[0.2em] text-stone-500">{{ $account['bank'] }} Virtual Account</p>
                                             <p class="mt-1 text-lg font-semibold">{{ $account['number'] }}</p>
                                         </div>
-                                        <button class="text-xs font-medium text-stone-600 underline underline-offset-4">Copy</button>
+                                        <button type="button" data-copy="{{ $account['number'] }}" class="copy-account text-xs font-medium text-stone-600 underline underline-offset-4">Copy</button>
                                     </div>
                                 @endforeach
                             </div>
@@ -83,7 +83,7 @@
 
                     <div class="mt-6 space-y-2">
                         <a href="{{ route('order.confirmed') }}" class="inline-flex w-full items-center justify-center rounded-xl bg-[#2f0a4f] px-4 py-3 text-sm font-semibold text-white transition hover:bg-[#22073a]">I have transferred</a>
-                        <button class="inline-flex w-full items-center justify-center rounded-xl border border-stone-300 px-4 py-3 text-sm text-stone-600 transition hover:border-stone-500">Copy Payment Details</button>
+                        <button id="copy-payment-details" type="button" class="inline-flex w-full items-center justify-center rounded-xl border border-stone-300 px-4 py-3 text-sm text-stone-600 transition hover:border-stone-500">Copy Payment Details</button>
                     </div>
                 </article>
 
@@ -96,5 +96,58 @@
 
         @include('partials.footer')
     </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const copyButtons = document.querySelectorAll('button[data-copy]');
+            const paymentButton = document.getElementById('copy-payment-details');
+            const notify = function (message) {
+                window.alert(message);
+            };
+
+            copyButtons.forEach(function (button) {
+                button.addEventListener('click', function () {
+                    const value = button.dataset.copy;
+
+                    if (!value) {
+                        return;
+                    }
+
+                    navigator.clipboard.writeText(value).then(function () {
+                        notify('Payment number copied: ' + value);
+                    }).catch(function () {
+                        notify('Unable to copy. Please copy manually.');
+                    });
+                });
+            });
+
+            if (paymentButton) {
+                paymentButton.addEventListener('click', function () {
+                    const accountName = document.querySelector('section h2 + div .font-semibold')?.textContent?.trim() || 'Account Name';
+                    const accountNumber = document.querySelector('section h2 + div .grid div:last-child .font-semibold')?.textContent?.trim() || '';
+                    const accounts = Array.from(document.querySelectorAll('button[data-copy]')).map(function (button) {
+                        const bankLabel = button.closest('.flex')?.querySelector('p.text-[11px]')?.textContent?.trim() || 'Bank';
+                        return bankLabel + ': ' + button.dataset.copy;
+                    }).join('\n');
+                    const total = '{{ number_format($total, 2) }}';
+
+                    const text = [
+                        'Payment Details',
+                        'Total Amount Due: $' + total,
+                        'Account Name: ' + accountName,
+                        'Account Number: ' + accountNumber,
+                        'Virtual Accounts:',
+                        accounts
+                    ].join('\n');
+
+                    navigator.clipboard.writeText(text).then(function () {
+                        notify('All payment details copied.');
+                    }).catch(function () {
+                        notify('Unable to copy payment details.');
+                    });
+                });
+            }
+        });
+    </script>
 </body>
 </html>

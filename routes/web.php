@@ -230,6 +230,34 @@ Route::get('/order/confirmed', function () {
     ]);
 })->name('order.confirmed');
 
+Route::get('/order/confirmed/invoice', function () {
+    $items = Product::query()
+        ->where('status', 'available')
+        ->where('is_active', true)
+        ->latest('id')
+        ->take(2)
+        ->get();
+
+    $subtotal = $items->sum(fn (Product $product) => (float) $product->price);
+    $shipping = 25;
+    $orderNumber = 'TF-928410';
+
+    return response()->streamDownload(function () use ($items, $subtotal, $shipping, $orderNumber) {
+        echo "Vintage Archive Invoice\n";
+        echo "Order ID: {$orderNumber}\n";
+        echo "Date: " . now()->format('M d, Y') . "\n\n";
+        echo "Items:\n";
+
+        foreach ($items as $item) {
+            echo "- {$item->name} ({$item->size}, {$item->condition}) - $" . number_format((float) $item->price, 2) . "\n";
+        }
+
+        echo "\nSubtotal: $" . number_format($subtotal, 2) . "\n";
+        echo "Shipping: $" . number_format($shipping, 2) . "\n";
+        echo "Total: $" . number_format($subtotal + $shipping, 2) . "\n";
+    }, "invoice-{$orderNumber}.txt");
+})->name('order.invoice');
+
 Route::get('/admin/products', function () {
     return view('admin.products');
 });

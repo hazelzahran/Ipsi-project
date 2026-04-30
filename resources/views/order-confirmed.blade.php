@@ -59,7 +59,7 @@
 
                 <div class="mt-6 space-y-2">
                     <a href="{{ route('catalog') }}" class="inline-flex w-full items-center justify-center rounded-xl bg-[#2f0a4f] px-4 py-3 text-sm font-semibold text-white transition hover:bg-[#22073a]">Continue Shopping</a>
-                    <button class="inline-flex w-full items-center justify-center rounded-xl border border-stone-300 px-4 py-3 text-sm text-stone-700 transition hover:border-stone-500">Download Invoice</button>
+                    <a href="{{ route('order.invoice') }}" class="inline-flex w-full items-center justify-center rounded-xl border border-stone-300 px-4 py-3 text-sm text-stone-700 transition hover:border-stone-500">Download Invoice</a>
                 </div>
             </section>
         </main>
