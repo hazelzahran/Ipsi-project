@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Catalog - Vintage Archive</title>
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="min-h-screen bg-stone-50 text-stone-950 antialiased">
     <div class="mx-auto flex min-h-screen max-w-7xl flex-col px-4 py-4 sm:px-6 lg:px-8">
@@ -116,7 +116,7 @@
                     @forelse ($products as $product)
                         <article class="group overflow-hidden rounded-3xl border border-stone-200 bg-white shadow-sm transition hover:-translate-y-1 hover:shadow-xl">
                             <div class="relative aspect-4/5 overflow-hidden bg-stone-100">
-                                <img src="{{ Vite::asset($product->primary_image_path) }}" alt="{{ $product->name }}" class="h-full w-full object-cover transition duration-700 group-hover:scale-105">
+                                <img src="{{ asset($product->primary_image_path) }}" alt="{{ $product->name }}" class="h-full w-full object-cover transition duration-700 group-hover:scale-105">
                                 <div class="absolute left-3 top-3 rounded-full bg-white/90 px-3 py-1 text-[11px] uppercase tracking-[0.25em] text-stone-700 backdrop-blur">{{ $product->category }}</div>
                             </div>
                             <div class="p-4">

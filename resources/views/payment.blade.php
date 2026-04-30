@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Awaiting Payment - Vintage Archive</title>
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="min-h-screen bg-stone-50 text-stone-950 antialiased">
     <div class="mx-auto flex min-h-screen max-w-7xl flex-col px-4 py-4 sm:px-6 lg:px-8">
@@ -58,7 +58,7 @@
                             </div>
 
                             <div class="mt-4 mx-auto flex aspect-square w-48 items-center justify-center rounded-2xl border border-stone-300 bg-white p-4">
-                                <img src="{{ Vite::asset($items->first()->primary_image_path) }}" alt="QR placeholder" class="h-full w-full rounded-xl object-cover">
+                                <img src="{{ asset($items->first()->primary_image_path) }}" alt="QR placeholder" class="h-full w-full rounded-xl object-cover">
                             </div>
                             <p class="mt-3 text-center text-xs text-stone-500">Scan with any supported e-wallet or mobile banking app.</p>
                         </section>
@@ -70,7 +70,7 @@
                             @foreach ($items as $item)
                                 <div class="grid grid-cols-[3.25rem_1fr_auto] items-center gap-3">
                                     <div class="aspect-square overflow-hidden rounded-xl bg-stone-100">
-                                        <img src="{{ Vite::asset($item->primary_image_path) }}" alt="{{ $item->name }}" class="h-full w-full object-cover">
+                                        <img src="{{ asset($item->primary_image_path) }}" alt="{{ $item->name }}" class="h-full w-full object-cover">
                                     </div>
                                     <div>
                                         <p class="font-medium leading-tight">{{ $item->name }}</p>

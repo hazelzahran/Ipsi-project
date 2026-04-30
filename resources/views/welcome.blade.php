@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Vintage Archive</title>
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="min-h-screen bg-stone-50 text-stone-950 antialiased">
     <div class="mx-auto flex min-h-screen max-w-7xl flex-col px-4 py-4 sm:px-6 lg:px-8">
@@ -54,7 +54,7 @@
                     @foreach ($featuredCollections as $item)
                         <article class="group overflow-hidden rounded-3xl border border-stone-200 bg-white shadow-sm transition hover:-translate-y-1 hover:shadow-xl">
                             <div class="aspect-4/5 overflow-hidden bg-stone-100">
-                                <img src="{{ Vite::asset($item->primary_image_path) }}" alt="{{ $item->name }}" class="h-full w-full object-cover transition duration-700 group-hover:scale-105">
+                                <img src="{{ asset($item->primary_image_path) }}" alt="{{ $item->name }}" class="h-full w-full object-cover transition duration-700 group-hover:scale-105">
                             </div>
                             <div class="p-5">
                                 <p class="text-xs uppercase tracking-[0.3em] text-stone-500">{{ $item->category ?: 'Archive' }}</p>
@@ -82,7 +82,7 @@
                     @foreach ($spotlightItems as $item)
                         <article class="overflow-hidden rounded-3xl border border-stone-200 bg-stone-50">
                             <div class="aspect-3/4 overflow-hidden">
-                                <img src="{{ Vite::asset($item->primary_image_path) }}" alt="{{ $item->name }}" class="h-full w-full object-cover">
+                                <img src="{{ asset($item->primary_image_path) }}" alt="{{ $item->name }}" class="h-full w-full object-cover">
                             </div>
                             <div class="p-3">
                                 <p class="text-[11px] uppercase tracking-[0.3em] text-stone-500">{{ $item->category ?: 'Archive' }}</p>
