@@ -271,3 +271,11 @@ Route::get('/admin/products', function () {
 
     return view('admin.products', compact('products'));
 });
+
+Route::get('/admin/orders/detail', function () {
+    return view('admin.order-detail');
+});
+
+Route::get('/admin/orders', function () {
+    return view('admin.orders');
+});
