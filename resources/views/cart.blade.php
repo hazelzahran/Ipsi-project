@@ -52,7 +52,7 @@
                     <p>Estimated Shipping: ${{ number_format($shipping, 2) }}</p>
                     <p><strong>Total: ${{ number_format($total, 2) }}</strong></p>
                     <p class="text-muted">Taxes calculated at checkout</p>
-                    <button class="btn btn-primary w-100">Checkout Now</button>
+                    <a href="{{ route('checkout') }}" class="btn btn-primary w-100 text-center">Checkout Now</a>
                 </div>
             </div>
         </div>
